@@ -1,0 +1,16 @@
+{
+  "splash_screen_text": "©2023, QSoft. All rights reserved.",
+  "home_screen_title_appbar": "Home",
+  "home_screen_title_hot_product": "HOT Products",
+  "home_screen_title_all_product": "All Products",
+  "button_add_cart": "Add to cart",
+  "button_summit": "Submit",
+  "validate_input_qty_exceed": "Quatity cannot exceed {number}",
+  "validate_input_qty_less": "Quatity cannot less than {number}",
+  "invalid_input_quatity": "Quatity invalid",
+  "cart_screen_title_appbar": "Cart ({number})",
+  "cart_screen_total_price": "Total price",
+  "cart_screen_order": "Order",
+  "cart_screen_order_successfully": "Order successfully!",
+  "cart_screen_button_back_to_home": "Back to home"
+}
