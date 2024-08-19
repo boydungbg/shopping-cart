@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart/extensions/responsive_extension.dart';
 
 class LoadingSectionWidget extends StatelessWidget {
   const LoadingSectionWidget({
@@ -22,15 +23,16 @@ class LoadingSectionWidget extends StatelessWidget {
                 visible: isLoading,
                 child: Container(
                     decoration: const BoxDecoration(color: Colors.black54),
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 50,
-                          height: 50,
+                          width: context.responsive(50, md: 70),
+                          height: context.responsive(50, md: 70),
                           child: CircularProgressIndicator(
                             color: Colors.orange,
+                            strokeWidth: context.responsive(4, md: 8),
                           ),
                         ),
                       ],

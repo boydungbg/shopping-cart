@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart/common/theme/system_design_theme.dart';
 import 'package:shopping_cart/entities/product/product.dart';
+import 'package:shopping_cart/extensions/responsive_extension.dart';
 import 'package:shopping_cart/generated/assets.gen.dart';
 import 'package:shopping_cart/widgets/text_price_widget.dart';
 
@@ -14,7 +16,7 @@ class ProductCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
+      width: context.responsive<double>(140, sm: 140, md: 290),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -56,8 +58,8 @@ class ProductCardWidget extends StatelessWidget {
                       ),
                       child: Image(
                         image: AssetImage(Assets.icons.flame.keyName),
-                        width: 20,
-                        height: 20,
+                        width: context.responsive<double>(20, sm: 20, md: 30),
+                        height: context.responsive<double>(20, sm: 20, md: 30),
                       ),
                     ))
             ],
@@ -76,7 +78,10 @@ class ProductCardWidget extends StatelessWidget {
                         Text(
                           data.title,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
+                          style: context.responsive(
+                              SD.of(context).textStyle.textBody2Bold,
+                              sm: SD.of(context).textStyle.textBody2Bold,
+                              md: SD.of(context).textStyle.textHeading5Bold),
                         ),
                         const SizedBox(
                           height: 5,
@@ -89,10 +94,10 @@ class ProductCardWidget extends StatelessWidget {
                       onTap: () {
                         onAddCart(data.id);
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.add_shopping_cart,
                         color: Colors.orange,
-                        size: 20,
+                        size: context.responsive<double>(20, sm: 20, md: 30),
                       ))
                 ],
               ),

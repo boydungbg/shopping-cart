@@ -180,10 +180,10 @@ class S {
     );
   }
 
-  /// `Back to home`
+  /// `Back to Home`
   String get cart_screen_button_back_to_home {
     return Intl.message(
-      'Back to home',
+      'Back to Home',
       name: 'cart_screen_button_back_to_home',
       desc: '',
       args: [],

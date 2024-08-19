@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:shopping_cart/common/route/route.dart';
+import 'package:shopping_cart/common/theme/system_design_theme.dart';
 import 'package:shopping_cart/entities/product/product.dart';
+import 'package:shopping_cart/extensions/responsive_extension.dart';
 import 'package:shopping_cart/generated/l10n.dart';
 import 'package:shopping_cart/widgets/overview_product_widget.dart';
 
@@ -33,7 +36,7 @@ class _BottomSheetAddCartViewState extends State<BottomSheetAddCartView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 230,
+      height: context.responsive(230, md: 300),
       padding: const EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 15),
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -66,6 +69,8 @@ class _BottomSheetAddCartViewState extends State<BottomSheetAddCartView> {
                 Expanded(
                   child: TextButton(
                       style: TextButton.styleFrom(
+                          padding: context.responsive(const EdgeInsets.all(10),
+                              md: const EdgeInsets.all(15)),
                           backgroundColor: Colors.orange,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12))),
@@ -74,8 +79,17 @@ class _BottomSheetAddCartViewState extends State<BottomSheetAddCartView> {
                       },
                       child: Text(
                         S.current.button_add_cart,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 20),
+                        style: context.responsive(
+                            SD
+                                .of(context)
+                                .textStyle
+                                .textBodyMedium
+                                .copyWith(color: Colors.white),
+                            md: SD
+                                .of(context)
+                                .textStyle
+                                .textHeading4Medium
+                                .copyWith(color: Colors.white)),
                       )),
                 ),
               ],

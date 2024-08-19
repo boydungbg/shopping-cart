@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_cart/common/di/di.dart';
 import 'package:shopping_cart/common/route/route.dart';
 import 'package:shopping_cart/common/route/route_name.dart';
+import 'package:shopping_cart/common/theme/system_design_theme.dart';
 import 'package:shopping_cart/cubit/home/home_screen_cubit.dart';
 import 'package:shopping_cart/cubit/home/home_screen_state.dart';
 import 'package:shopping_cart/entities/product/product.dart';
+import 'package:shopping_cart/extensions/responsive_extension.dart';
 import 'package:shopping_cart/generated/assets.gen.dart';
 import 'package:shopping_cart/generated/l10n.dart';
 import 'package:shopping_cart/screen/cart_screen/cart_screen.dart';
@@ -61,7 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle.light,
           centerTitle: true,
-          title: Text(S.current.home_screen_title_appbar),
+          title: Text(
+            S.current.home_screen_title_appbar,
+            style: context.responsive(SD.of(context).textStyle.textHeading4Bold,
+                md: SD.of(context).textStyle.textHeading2Bold),
+          ),
           actions: [
             IconButton(
                 onPressed: () async {
@@ -77,15 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Badge(
                         backgroundColor: Colors.redAccent,
                         label: Text(
-                            state.homeScreenViewModel.countCartItem.toString()),
+                            state.homeScreenViewModel.countCartItem.toString(),
+                            style: context.responsive(
+                                SD.of(context).textStyle.textSmallRegular,
+                                md: SD.of(context).textStyle.textBodyRegular)),
                         alignment: Alignment.topLeft,
                         padding: const EdgeInsets.all(1),
-                        offset: const Offset(-5, 10),
+                        offset: context.responsive(const Offset(-5, 10),
+                            md: const Offset(-10, 20)),
                         child: Image(
                           color: Colors.white,
                           image: AssetImage(Assets.icons.shoppingCart.keyName),
-                          width: 25,
-                          height: 25,
+                          width: context.responsive(25, md: 35),
+                          height: context.responsive(25, md: 35),
                         ),
                       );
                     }))
@@ -93,7 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: BlocConsumer<HomeScreenCubit, HomeScreenState>(
             bloc: _cubit,
-            listener: (context, state) {},
+            listener: (context, state) {
+              //todo: Handle show error
+            },
             builder: (context, state) {
               _state = state;
               return RefreshIndicator(
@@ -127,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               image: AssetImage(
                                 Assets.icons.flame.keyName,
                               ),
-                              width: 22,
+                              width: context.responsive(20, md: 35),
                             ),
                           ),
                         ),
@@ -139,7 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SliverToBoxAdapter(
                         child: SizedBox(
-                          height: 220,
+                          height:
+                              context.responsive<double>(220, sm: 220, md: 380),
                           child: state is HomeScreenLoadingSkeletonState
                               ? const LoadingHotListProduct()
                               : ListView.separated(
@@ -200,11 +213,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: _state
                                     .homeScreenViewModel.productList.length,
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      context.responsive<int>(2, sm: 2, md: 3),
                                   mainAxisSpacing: 15,
                                   crossAxisSpacing: 15,
-                                  childAspectRatio: 0.7,
+                                  childAspectRatio: context.responsive<double>(
+                                      0.7,
+                                      sm: 0.7,
+                                      md: 0.75),
                                 ),
                                 itemBuilder: (_, index) {
                                   final Product product = _state

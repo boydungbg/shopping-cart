@@ -84,8 +84,6 @@ class CartScreenCubit extends Cubit<CartScreenState> {
   Future<void> deleteItem(int cartId) async {
     emit(CartScreenLoadingState(
         cartScreenViewModel: state.cartScreenViewModel.copyWith()));
-    await Future.delayed(const Duration(seconds: 1));
-
     Either<BaseException, bool> fold =
         await _service.deleteCartItem(DeleteCartItemRequest(id: cartId));
     if (fold.isLeft) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart/extensions/responsive_extension.dart';
 import 'package:shopping_cart/widgets/skeleton_loading_widget.dart';
 
 class LoadingHotListProduct extends StatelessWidget {
@@ -15,7 +16,7 @@ class LoadingHotListProduct extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => Container(
-        width: 140,
+        width: context.responsive<double>(140, sm: 140, md: 290),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
@@ -34,7 +35,7 @@ class LoadingHotListProduct extends StatelessWidget {
             SkeletonLoading(
               child: Container(
                 color: Colors.white,
-                height: 140,
+                height: context.responsive<double>(140, sm: 140, md: 290),
               ),
             ),
             Expanded(
@@ -52,8 +53,8 @@ class LoadingHotListProduct extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(4)),
-                        width: 70,
-                        height: 15,
+                        width: context.responsive<double>(70, sm: 70, md: 100),
+                        height: context.responsive<double>(15, md: 20),
                       ),
                     ),
                     const SizedBox(
@@ -64,8 +65,8 @@ class LoadingHotListProduct extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(4)),
-                        width: 40,
-                        height: 15,
+                        width: context.responsive<double>(40, sm: 40, md: 70),
+                        height: context.responsive<double>(15, md: 20),
                       ),
                     ),
                   ],
@@ -86,11 +87,11 @@ class LoadingAllProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverGrid.builder(
       itemCount: 4,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: context.responsive<int>(2, md: 3),
         mainAxisSpacing: 15,
         crossAxisSpacing: 15,
-        childAspectRatio: 0.7,
+        childAspectRatio: context.responsive<double>(0.7, sm: 0.7, md: 0.75),
       ),
       itemBuilder: (context, index) => Container(
         clipBehavior: Clip.hardEdge,
@@ -111,7 +112,7 @@ class LoadingAllProduct extends StatelessWidget {
             SkeletonLoading(
               child: Container(
                 color: Colors.white,
-                height: 180,
+                height: context.responsive<double>(180, sm: 180, md: 280),
               ),
             ),
             Expanded(
@@ -129,8 +130,8 @@ class LoadingAllProduct extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(4)),
-                        width: 70,
-                        height: 15,
+                        width: context.responsive<double>(70, sm: 70, md: 100),
+                        height: context.responsive<double>(15, md: 20),
                       ),
                     ),
                     const SizedBox(
@@ -141,8 +142,8 @@ class LoadingAllProduct extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(4)),
-                        width: 40,
-                        height: 15,
+                        width: context.responsive<double>(40, sm: 40, md: 70),
+                        height: context.responsive<double>(15, md: 20),
                       ),
                     ),
                   ],

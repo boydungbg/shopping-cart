@@ -31,7 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "button_add_cart": MessageLookupByLibrary.simpleMessage("Add to cart"),
         "button_summit": MessageLookupByLibrary.simpleMessage("Submit"),
         "cart_screen_button_back_to_home":
-            MessageLookupByLibrary.simpleMessage("Back to home"),
+            MessageLookupByLibrary.simpleMessage("Back to Home"),
         "cart_screen_order": MessageLookupByLibrary.simpleMessage("Order"),
         "cart_screen_order_successfully":
             MessageLookupByLibrary.simpleMessage("Order successfully!"),

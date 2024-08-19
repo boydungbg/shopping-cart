@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_cart/common/route/route.dart';
+import 'package:shopping_cart/common/theme/system_design_theme.dart';
+import 'package:shopping_cart/extensions/responsive_extension.dart';
 import 'package:shopping_cart/generated/assets.gen.dart';
 import 'package:shopping_cart/generated/l10n.dart';
 import 'package:shopping_cart/widgets/text_price_widget.dart';
@@ -112,21 +114,24 @@ class _OverviewProductState extends State<OverviewProduct> {
                       child: Text(
                         widget.params.title,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700),
+                        style: context.responsive(
+                            SD.of(context).textStyle.textBodyBold,
+                            md: SD.of(context).textStyle.textHeading3Medium),
                       ),
                     ),
                     IconButton.outlined(
-                        style: IconButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        )),
-                        onPressed: () {
-                          if (widget.params.onCloseButton != null) {
-                            widget.params.onCloseButton!();
-                          }
-                        },
-                        icon: const Icon(Icons.close_rounded))
+                      style: IconButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      )),
+                      onPressed: () {
+                        if (widget.params.onCloseButton != null) {
+                          widget.params.onCloseButton!();
+                        }
+                      },
+                      icon: const Icon(Icons.close_rounded),
+                      iconSize: context.responsive(20, md: 30),
+                    )
                   ],
                 ),
               ),
@@ -144,8 +149,8 @@ class _OverviewProductState extends State<OverviewProduct> {
                                   decrease();
                                 },
                                 child: Container(
-                                    width: 40,
-                                    height: 40,
+                                    width: context.responsive(40, md: 50),
+                                    height: context.responsive(40, md: 50),
                                     decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(7),
@@ -173,13 +178,13 @@ class _OverviewProductState extends State<OverviewProduct> {
                                   handleShowInputQty();
                                 },
                                 child: Container(
-                                    height: 40,
+                                    height: context.responsive(40, md: 50),
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                       width: 1,
                                       color: Colors.black26,
                                     )),
-                                    width: 70,
+                                    width: context.responsive(70, md: 100),
                                     child: Center(
                                         child: Text(
                                       _quatity.toString(),
@@ -192,8 +197,8 @@ class _OverviewProductState extends State<OverviewProduct> {
                                   increase();
                                 },
                                 child: Container(
-                                    width: 40,
-                                    height: 40,
+                                    width: context.responsive(40, md: 50),
+                                    height: context.responsive(40, md: 50),
                                     decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(7),
@@ -224,9 +229,18 @@ class _OverviewProductState extends State<OverviewProduct> {
                         child: TextPriceWidget(
                             textAlign: TextAlign.right,
                             price: widget.params.price,
-                            textStyle: const TextStyle(
-                                color: Colors.orange,
-                                fontWeight: FontWeight.w600)))
+                            textStyle: context.responsive(
+                              SD
+                                  .of(context)
+                                  .textStyle
+                                  .textBody2Medium
+                                  .copyWith(color: Colors.orangeAccent),
+                              sm: SD
+                                  .of(context)
+                                  .textStyle
+                                  .textHeading4Medium
+                                  .copyWith(color: Colors.orangeAccent),
+                            )))
                   ],
                 ),
               ),
@@ -304,22 +318,36 @@ class _InputQuatityWidgetState extends State<_InputQuatityWidget> {
           children: [
             Text(
               widget.title,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+              style: context.responsive(
+                SD.of(context).textStyle.textHeading4Bold,
+                md: SD.of(context).textStyle.textHeading3Bold,
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
             SizedBox(
-              height: 80,
+              height: context.responsive(85, md: 100),
               child: TextField(
                 keyboardType: TextInputType.number,
                 controller: _controller,
                 textAlign: TextAlign.center,
                 cursorColor: Colors.orange,
                 decoration: InputDecoration(
+                  errorStyle: context.responsive(
+                      SD
+                          .of(context)
+                          .textStyle
+                          .textBody2Regular
+                          .copyWith(color: Colors.red),
+                      md: SD
+                          .of(context)
+                          .textStyle
+                          .textLargeRegular
+                          .copyWith(color: Colors.red)),
                   errorText: textError,
                   errorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.redAccent)),
+                      borderSide: BorderSide(color: Colors.red)),
                   focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.orange)),
                   focusColor: Colors.orange,
@@ -332,24 +360,35 @@ class _InputQuatityWidgetState extends State<_InputQuatityWidget> {
               children: [
                 Expanded(
                   child: TextButton(
-                      style: TextButton.styleFrom(
-                          disabledBackgroundColor: Colors.grey,
-                          backgroundColor: Colors.orange,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12))),
-                      onPressed: isActiveButton
-                          ? () {
-                              widget.onUpdateQty(
-                                  int.parse(_controller.value.text));
-                              navigatorState.pop();
-                            }
-                          : null,
-                      child: Text(
-                        S.current.button_summit,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 20),
-                      )),
-                ),
+                    style: TextButton.styleFrom(
+                        disabledBackgroundColor: Colors.grey,
+                        padding: context.responsive(const EdgeInsets.all(10),
+                            md: const EdgeInsets.all(15)),
+                        backgroundColor: Colors.orange,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12))),
+                    onPressed: isActiveButton
+                        ? () {
+                            widget
+                                .onUpdateQty(int.parse(_controller.value.text));
+                            navigatorState.pop();
+                          }
+                        : null,
+                    child: Text(S.current.button_summit,
+                        style: context.responsive(
+                          SD
+                              .of(context)
+                              .textStyle
+                              .textBodyMedium
+                              .copyWith(color: Colors.white),
+                          md: SD
+                              .of(context)
+                              .textStyle
+                              .textHeading4Medium
+                              .copyWith(color: Colors.white),
+                        )),
+                  ),
+                )
               ],
             ),
           ],
