@@ -11,16 +11,12 @@ import 'package:shopping_cart/common/theme/system_design_theme.dart';
 import 'package:shopping_cart/generated/l10n.dart';
 import 'package:shopping_cart/repository/sqflite_database.dart';
 
-void main() {
-  runZonedGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    //Init Depenency
-    await initDi();
-    await di.get<SqfliteDatabase>().openDb();
-    runApp(const MyApp());
-  }, (err, trace) {
-    log(err.toString(), stackTrace: trace);
-  });
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //Init Depenency
+  await initDi();
+  await di.get<SqfliteDatabase>().openDb();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

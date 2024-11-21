@@ -84,7 +84,7 @@ class _CartScreenState extends State<CartScreen> {
                                   onPressed: () {
                                     navigatorState.popUntil((route) =>
                                         route.settings.name ==
-                                        RouteName.homeScreen);
+                                        RouteName.mainScreen);
                                   },
                                   child: Text(
                                     S.current.cart_screen_button_back_to_home,

@@ -10,6 +10,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shopping_cart/common/stream/index_bottom_navigation_bar_stream.dart'
+    as _i239;
 import 'package:shopping_cart/cubit/cart/cart_screen_cubit.dart' as _i207;
 import 'package:shopping_cart/cubit/home/home_screen_cubit.dart' as _i403;
 import 'package:shopping_cart/repository/local/cart_repository.dart' as _i884;
@@ -32,6 +34,8 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.singleton<_i640.SqfliteDatabase>(() => _i640.SqfliteDatabase());
+    gh.lazySingleton<_i239.IndexBottomNavigationBarStream>(
+        () => _i239.IndexBottomNavigationBarStream());
     gh.factory<_i884.CartRepository>(
         () => _i884.CartReposityImpl(gh<_i640.SqfliteDatabase>()));
     gh.factory<_i195.HandleException>(() => _i195.ExceptionHandleImpl());
