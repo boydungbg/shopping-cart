@@ -189,6 +189,56 @@ class S {
       args: [],
     );
   }
+
+  /// `My Orders`
+  String get order_screen_title_appbar {
+    return Intl.message(
+      'My Orders',
+      name: 'order_screen_title_appbar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order no`
+  String get order_screen_order_item_order_no {
+    return Intl.message(
+      'Order no',
+      name: 'order_screen_order_item_order_no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total products`
+  String get order_screen_order_item_total_items {
+    return Intl.message(
+      'Total products',
+      name: 'order_screen_order_item_total_items',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `({number} items):`
+  String order_screen_order_item_total_items_value(Object number) {
+    return Intl.message(
+      '($number items):',
+      name: 'order_screen_order_item_total_items_value',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `View more`
+  String get order_screen_order_item_view_more {
+    return Intl.message(
+      'View more',
+      name: 'order_screen_order_item_view_more',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -22,9 +22,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(number) => "Cart (${number})";
 
-  static String m1(number) => "Quatity cannot exceed ${number}";
+  static String m1(number) => "(${number} items):";
 
-  static String m2(number) => "Quatity cannot less than ${number}";
+  static String m2(number) => "Quatity cannot exceed ${number}";
+
+  static String m3(number) => "Quatity cannot less than ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -46,9 +48,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("HOT Products"),
         "invalid_input_quatity":
             MessageLookupByLibrary.simpleMessage("Quatity invalid"),
+        "order_screen_order_item_order_no":
+            MessageLookupByLibrary.simpleMessage("Order no"),
+        "order_screen_order_item_total_items":
+            MessageLookupByLibrary.simpleMessage("Total products"),
+        "order_screen_order_item_total_items_value": m1,
+        "order_screen_order_item_view_more":
+            MessageLookupByLibrary.simpleMessage("View more"),
+        "order_screen_title_appbar":
+            MessageLookupByLibrary.simpleMessage("My Orders"),
         "splash_screen_text": MessageLookupByLibrary.simpleMessage(
             "©2023, QSoft. All rights reserved."),
-        "validate_input_qty_exceed": m1,
-        "validate_input_qty_less": m2
+        "validate_input_qty_exceed": m2,
+        "validate_input_qty_less": m3
       };
 }

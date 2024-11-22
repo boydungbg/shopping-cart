@@ -12,6 +12,7 @@ class SqfliteDatabase {
 
   Future<void> openDb() async {
     final String path = await getDatabasesPath();
+    // await deleteDatabase(path);
     _db = await openDatabase(join(path, 'shopping_cart.db'),
         onCreate: _onCreateDb as OnDatabaseCreateFn, version: 1);
   }
@@ -22,6 +23,10 @@ class SqfliteDatabase {
         'CREATE TABLE products (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, image TEXT, price REAL, is_hot INTEGER, created_at INTEGER, updated_at INTEGER)');
     batch.execute(
         'CREATE TABLE cart_items (id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, image TEXT, title TEXT, price REAL, quantity INTEGER)');
+    batch.execute(
+        'CREATE TABLE orders(id INTEGER PRIMARY KEY AUTOINCREMENT, order_no TEXT, created_at INTEGER, status INTEGER, total_price REAL, total_qty INTEGER)');
+    batch.execute(
+        'CREATE TABLE order_items (id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, order_id INTEGER, image TEXT, title TEXT, price REAL, quantity INTEGER)');
     for (var i = 0; i < 100; i++) {
       batch.insert('products', {
         'title': 'Product #$i',

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:either_dart/either.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -8,19 +10,24 @@ import 'package:shopping_cart/entities/cart/delete_cart_item_request.dart';
 import 'package:shopping_cart/entities/cart/get_list_cart_item_request.dart';
 import 'package:shopping_cart/entities/cart/get_list_cart_item_response.dart';
 import 'package:shopping_cart/entities/cart/update_cart_item_request.dart';
+import 'package:shopping_cart/entities/order/add_order_item_request.dart';
+import 'package:shopping_cart/entities/order/add_order_request.dart';
 import 'package:shopping_cart/services/cart_service.dart';
+import 'package:shopping_cart/services/order_service.dart';
 
 @injectable
 class CartScreenCubit extends Cubit<CartScreenState> {
-  CartScreenCubit(this._service) : super(const CartScreenInitState());
+  CartScreenCubit(this._service, this._orderService)
+      : super(const CartScreenInitState());
   final CartService _service;
+  final OrderService _orderService;
 
   int totalCartItemInScreen = 0;
 
   Future<void> getListCart() async {
     emit(CartScreenLoadingSkeletonState(
         cartScreenViewModel: state.cartScreenViewModel.copyWith()));
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
 
     Either<BaseException, GetListCartItemResponse> fold =
         await _service.getCartItems(const GetListCartItemRequest());
@@ -116,7 +123,42 @@ class CartScreenCubit extends Cubit<CartScreenState> {
   Future<void> order() async {
     emit(CartScreenLoadingState(
         cartScreenViewModel: state.cartScreenViewModel.copyWith()));
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
+    final double totalPrice =
+        state.cartScreenViewModel.cartItems.fold(0, (value, item) {
+      return value + item.price * item.quantity;
+    });
+
+    final double totalQty =
+        state.cartScreenViewModel.cartItems.fold(0, (value, item) {
+      return value + item.quantity;
+    });
+    final AddOrderRequest orderRequest = AddOrderRequest(
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        orderNo: _generateRandomNumber(),
+        status: 0,
+        totalPrice: totalPrice,
+        totalQty: totalQty);
+
+    final List<AddOrderItemRequest> orderItemsRequest =
+        state.cartScreenViewModel.cartItems
+            .map((cartItem) {
+              return AddOrderItemRequest(
+                  image: cartItem.image,
+                  orderId: 0,
+                  price: cartItem.price,
+                  productId: cartItem.productId,
+                  quantity: cartItem.quantity,
+                  title: cartItem.title);
+            })
+            .cast<AddOrderItemRequest>()
+            .toList();
+    Either<BaseException, bool> orderFold =
+        await _orderService.createOrder(orderRequest, orderItemsRequest);
+    if (orderFold.isLeft) {
+      return emit(CartScreenErrorState(
+          cartScreenViewModel: state.cartScreenViewModel.copyWith()));
+    }
     Either<BaseException, bool> fold = await _service.deleteAllItemInCart();
     if (fold.isLeft) {
       return emit(CartScreenErrorState(
@@ -126,5 +168,10 @@ class CartScreenCubit extends Cubit<CartScreenState> {
       totalCartItemInScreen = 0;
       return emit(const CartScreenOrderSuccessState());
     }
+  }
+
+  String _generateRandomNumber() {
+    return (10000000 + Random().nextInt(99999999))
+        .toString(); // Generates a random 4-digit number
   }
 }

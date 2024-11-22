@@ -27,7 +27,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   Future<void> initHomeScreen() async {
     emit(HomeScreenLoadingSkeletonState(
         homeScreenViewModel: state.homeScreenViewModel.copyWith()));
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final Either<BaseException, HotProductListResponse> hotProductListRes =
         await _service
             .getHotProductList(const HotProductListRequest(limit: 10));
@@ -83,7 +83,8 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     }
     emit(HomeScreenPullingNextPageState(
         homeScreenViewModel: state.homeScreenViewModel.copyWith()));
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1
+    ));
     page += 1;
     final Either<BaseException, ProductListResponse> productListRes =
         await _service

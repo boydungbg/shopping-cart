@@ -14,8 +14,8 @@ import 'package:shopping_cart/extensions/responsive_extension.dart';
 import 'package:shopping_cart/generated/assets.gen.dart';
 import 'package:shopping_cart/generated/l10n.dart';
 import 'package:shopping_cart/screen/cart_screen/cart_screen.dart';
-import 'package:shopping_cart/screen/home_screen.dart';
-import 'package:shopping_cart/screen/order_screen.dart';
+import 'package:shopping_cart/screen/main/home_screen.dart';
+import 'package:shopping_cart/screen/order_screen/order_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
