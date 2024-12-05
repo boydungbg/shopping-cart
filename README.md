@@ -70,7 +70,8 @@ The Shoping Cart project using [Flutter Framework](https://flutter.dev) to build
   * pubspec.yaml: Dependency manager for listing packages used in the project.
   * README.md: Documentation for understanding and using the project.
 * **`lib` Directory**
-  > The primary directory containing the application's source code. This directory is further divided into logical modules for better maintainability:
+
+The primary directory containing the application's source code. This directory is further divided into logical modules for better maintainability:
 
   * common/
     - Houses shared utilities, constants, and helper functions used across the application.
