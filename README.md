@@ -105,7 +105,7 @@ The Shoping Cart project using [Flutter Framework](https://flutter.dev) to build
 
     
 - **Tech**
-  - In project, [Flutter](https://flutter.dev) is an open source framework for building beautiful, natively compiled, multi-platform applications from a single codebase. So I choose this.
+  - In project, using [Flutter](https://flutter.dev) for building beautiful, natively compiled, multi-platform applications from a single codebase.
   - Apply MVVM pattern Model–View–Viewmodel to organize code structure that help maintainability, testability and scalability. This pattern separate code UI, code business logic and data.
   - Using concept [Dependence Injection](https://www.freecodecamp.org/news/a-quick-intro-to-dependency-injection-what-it-is-and-when-to-use-it-7578c84fa88f) to manage initialized intance, increase reusability and testability.
   - [Function programing](https://resocoder.com/2023/12/05/practical-functional-programming-in-dart-flutter/) to reduce side effects, increase immutability and reuesability.
